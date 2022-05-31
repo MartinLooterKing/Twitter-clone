@@ -44,13 +44,23 @@ if ($resultado_id = mysqli_query($link, $sql)) {
   echo 'Erro ao tentar loalizar o registro de email.';
 }
 
-if($usuario_existe || $email_existe){
+if ($usuario_existe || $email_existe) {
 
-  header('Location: inscrevase.php');
+  $retorno_get = '';
 
+  if ($usuario_existe) {
+
+    $retorno_get .= "erro_usuario=1&";
+  }
+
+  if ($email_existe) {
+
+    $retorno_get .= "erro_email=1&";
+  }
+
+  header('Location: inscrevase.php?' . $retorno_get);
+  die();
 }
-
-die();
 
 $sql = "INSERT INTO usuarios(usuario, email, senha) VALUES ('$usuario', '$email', '$senha')";
 
