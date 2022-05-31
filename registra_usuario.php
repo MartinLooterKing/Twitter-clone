@@ -9,7 +9,7 @@
   $objDb = new db();
   $link = $objDb -> conecta_mysql();
 
-  $sql = "insert into usuarios(usuario, email, senha) values ('$usuario', '$email', '$senha')";
+  $sql = "INSERT INTO usuarios(usuario, email, senha) VALUES ('$usuario', '$email', '$senha')";
 
   //executar a query
   if(mysqli_query($link, $sql)){
