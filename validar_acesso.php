@@ -1,36 +1,37 @@
 <?php
 
-  require_once('db.class.php');
+session_start();
 
-  $usuario = $_POST['usuario'];
-  $senha = $_POST['senha'];
+require_once('db.class.php');
 
-  $sql = "SELECT * FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'";
+$usuario = $_POST['usuario'];
+$senha = md5($_POST['senha']);
 
-  $objDb = new db();
-  $link = $objDb -> conecta_mysql();
+$sql = "SELECT usuario, email FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'";
 
-  $resultado_id = mysqli_query($link, $sql);
+$objDb = new db();
+$link = $objDb->conecta_mysql();
 
-  if($resultado_id){
+$resultado_id = mysqli_query($link, $sql);
 
-    $dados_usuario = mysqli_fetch_array($resultado_id);
+if ($resultado_id) {
 
-    if(isset($dados_usuario['usuario'])){
+  $dados_usuario = mysqli_fetch_array($resultado_id);
 
-      echo 'Usuário existe';
+  if (isset($dados_usuario['usuario'])) {
 
-    } else {
+    $_SESSION['usuario'] = $dados_usuario['usuario'];
+    $_SESSION['email'] = $dados_usuario['email'];
 
-      header('Location: index.php?erro=1');
-
-    }
-
+    header('Location: home.php');
   } else {
 
-    echo 'Erro na execução da consulta, favor entrar em contato com o admim do site';
-
+    header('Location: index.php?erro=1');
   }
+} else {
+
+  echo 'Erro na execução da consulta, favor entrar em contato com o admim do site';
+}
 
   
 
