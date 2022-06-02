@@ -23,6 +23,33 @@ if (!isset($_SESSION['usuario'])) {
   <!-- bootstrap - link cdn -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
+  <script type="text/javascript">
+    $(document).read(function() {
+
+      $('#btn_tweet').click(function() {
+
+        if ($('#texto_tweet').val().length > 0) {
+
+          $.ajax({
+
+            url: 'inclui_tweet.php',
+            method: 'post',
+            data: $('#form_tweet').serialize(),
+            success: function(data) {
+
+              alert(data);
+
+            }
+
+          });
+
+        }
+
+      });
+
+    });
+  </script>
+
 </head>
 
 <body>
@@ -73,12 +100,12 @@ if (!isset($_SESSION['usuario'])) {
 
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="O que está acontecendo agora?" maxlength="140">
+          <form id="form_tweet" class="input-group">
+            <input type="text" id="texto_tweet" class="form-control" name="texto_tweet" placeholder="O que está acontecendo agora?" maxlength="140">
             <span class="input-group-btn">
-              <button class="btn btn-default" type="button">Tweet</button>
+              <button id="btn_tweet" class="btn btn-default" type="button">Tweet</button>
             </span>
-          </div>
+          </form>
         </div>
       </div>
 
