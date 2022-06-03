@@ -7,7 +7,7 @@ require_once('db.class.php');
 $usuario = $_POST['usuario'];
 $senha = md5($_POST['senha']);
 
-$sql = "SELECT usuario, email FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'";
+$sql = "SELECT id, usuario, email FROM usuarios WHERE usuario = '$usuario' AND senha = '$senha'";
 
 $objDb = new db();
 $link = $objDb->conecta_mysql();
@@ -20,6 +20,7 @@ if ($resultado_id) {
 
   if (isset($dados_usuario['usuario'])) {
 
+    $_SESSION['id_usuario'] = $dados_usuario['id'];
     $_SESSION['usuario'] = $dados_usuario['usuario'];
     $_SESSION['email'] = $dados_usuario['email'];
 

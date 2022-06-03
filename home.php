@@ -24,7 +24,7 @@ if (!isset($_SESSION['usuario'])) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 
   <script type="text/javascript">
-    $(document).read(function() {
+    $(document).ready(function() {
 
       $('#btn_tweet').click(function() {
 
@@ -37,7 +37,8 @@ if (!isset($_SESSION['usuario'])) {
             data: $('#form_tweet').serialize(),
             success: function(data) {
 
-              alert(data);
+              $('#texto_tweet').val('');
+              atualizaTweet();
 
             }
 
@@ -46,6 +47,25 @@ if (!isset($_SESSION['usuario'])) {
         }
 
       });
+
+      function atualizaTweet() {
+
+        //carregar os tweets
+
+        $.ajax({
+
+          url: 'get_tweet.php',
+          success: function(data) {
+
+            $('#tweets').html(data);
+
+          }
+
+        });
+
+      }
+
+      atualizaTweet();
 
     });
   </script>
@@ -108,6 +128,8 @@ if (!isset($_SESSION['usuario'])) {
           </form>
         </div>
       </div>
+
+      <div id="tweets" class="list-group"></div>
 
     </div>
     <div class="col-md-3">
