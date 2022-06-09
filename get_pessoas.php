@@ -26,7 +26,8 @@ if ($resultado_id) {
     echo '<a href="#" class="list-group-item">';
     echo '<strong>' . $registro['usuario'] . '</strong> <small> - ' . $registro['email'] . ' </small>';
     echo '<p class="list-group-item-text pull-right">';
-    echo '<button type="button" class="btn btn-default">Seguir</button>';
+    echo '<button type="button" id="btn_seguir_' . $registro['id'] . '" class="btn btn-default btn_seguir" data-id_usuario="' . $registro['id'] . '">Seguir</button>';
+    echo '<button type="button" id="btn_deixar_seguir_' . $registro['id'] . '" style="display:none" class="btn btn-primary btn_deixar_seguir" data-id_usuario="' . $registro['id'] . '">Deixar de Seguir</button>';
     echo '</p>';
     echo '<div class="clearfix"></div>';
     echo '</a>';
